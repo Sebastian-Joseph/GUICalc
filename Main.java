@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 class Calculator extends JFrame {
+
     private final JTextField textfield;
     private boolean number = true;
     private String equalOp = "=";
@@ -58,48 +59,53 @@ class Calculator extends JFrame {
         this.setTitle("Calculator");
         this.setResizable(false);
     }
+
     private void action() {
+
         number = true;
         textfield.setText("");
         equalOp = "=";
         op.setTotal("");
     }
+
     class OperatorListener implements ActionListener {
+
         public void actionPerformed(ActionEvent e) {
+
             String displayText = textfield.getText();
 
             if (e.getActionCommand().equals("sin"))
             {
                 textfield.setText("" + Math.sin(Double.parseDouble(displayText)));
 
-            }else
-            if (e.getActionCommand().equals("cos"))
-            {
+            }
+
+            else
+
+            if (e.getActionCommand().equals("cos")) {
                 textfield.setText("" + Math.cos(Double.parseDouble(displayText)));
 
             }
+
             else
-            if (e.getActionCommand().equals("log"))
-            {
+
+            if (e.getActionCommand().equals("log")) {
                 textfield.setText("" + Math.log(Double.parseDouble(displayText)));
 
             }
-            else if (e.getActionCommand().equals("C"))
-            {
+
+            else if (e.getActionCommand().equals("C")) {
                 textfield.setText("");
             }
 
-            else
-            {
-                if (number)
-                {
+            else {
+                if (number) {
 
                     action();
                     textfield.setText("");
 
                 }
-                else
-                {
+                else {
                     number = true;
                     switch (equalOp) {
                         case "=" -> op.setTotal(displayText);
@@ -117,7 +123,9 @@ class Calculator extends JFrame {
     }
 
     class NumberListener implements ActionListener {
+
         public void actionPerformed(ActionEvent event) {
+
             String digit = event.getActionCommand();
             if (number) {
                 textfield.setText(digit);
@@ -128,7 +136,9 @@ class Calculator extends JFrame {
         }
     }
     public static class CalculatorOp {
+
         private double total;
+
         public CalculatorOp() {
             total = 0;
         }
@@ -155,8 +165,11 @@ class Calculator extends JFrame {
         }
     }
 }
+
 class FinishedCalculator {
+
     public static void main(String[] args) {
+
         JFrame frame = new Calculator();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
