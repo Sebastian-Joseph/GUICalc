@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 class Calculator extends JFrame {
 
+
+
     private final JTextField textfield;
     private boolean number = true;
     private String equalOp = "=";
@@ -14,12 +16,14 @@ class Calculator extends JFrame {
 
         textfield = new JTextField("", 12);
         textfield.setHorizontalAlignment(JTextField.RIGHT);
-        Font FONT = new Font("algerian", Font.PLAIN, 20);
+        Font FONT = new Font("ancient modern tales", Font.PLAIN, 20);
         textfield.setFont(FONT);
 
         ActionListener numberListener = new NumberListener();
 
-        String buttonOrder = "1234567890";
+       
+
+        String buttonOrder = "1234567890-";
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(4, 4, 4, 4));
 
@@ -31,6 +35,9 @@ class Calculator extends JFrame {
                 JButton button = new JButton(key);
                 button.addActionListener(numberListener);
                 button.setFont(FONT);
+                button.setBackground(Color.GRAY);
+                button.setForeground(Color.WHITE);
+                button.setOpaque(true);
                 buttonPanel.add(button);
             }
         }
@@ -38,11 +45,12 @@ class Calculator extends JFrame {
         ActionListener operatorListener = new OperatorListener();
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(4, 4, 4, 4));
-        String[] opOrder = {"+", "-", "*", "/","=","C","sin","cos","log"};
+        String[] opOrder = {"+", "-", "*", "/", "%","=","C","sin","cos","log"};
 
         for (String s : opOrder) {
             JButton button = new JButton(s);
             button.setBackground(Color.ORANGE);
+            button.setForeground(Color.WHITE);
             button.setOpaque(true);
             button.addActionListener(operatorListener);
             button.setFont(FONT);
@@ -98,6 +106,8 @@ class Calculator extends JFrame {
                 textfield.setText("");
             }
 
+
+
             else {
                 if (number) {
 
@@ -113,6 +123,7 @@ class Calculator extends JFrame {
                         case "-" -> op.subtract(displayText);
                         case "*" -> op.multiply(displayText);
                         case "/" -> op.divide(displayText);
+                        case "%" -> op.modular(displayText);
                     }
 
                     textfield.setText("" + op.getTotalString());
@@ -160,6 +171,9 @@ class Calculator extends JFrame {
         public void divide(String n) {
             total /= convertToNumber(n);
         }
+        public void modular(String n) {
+            total %= convertToNumber(n);
+        }
         private double convertToNumber(String n) {
             return Double.parseDouble(n);
         }
@@ -170,8 +184,12 @@ class FinishedCalculator {
 
     public static void main(String[] args) {
 
+    try {
         JFrame frame = new Calculator();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+    } catch (Exception e) {
+
+    }
     }
 }
